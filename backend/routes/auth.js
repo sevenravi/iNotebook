@@ -19,14 +19,14 @@ router.post('/createuser',
         console.log(req.body);
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            res.status(400).json({ errors: errors.array() });
+            res.status(400).json({ msg: errors.array() });
         }
-        console.log(User)
+        // console.log(User)
         try {
             //checking for dublicate emails
             let user = await User.findOne({ email: req.body.email })
             if (user) {
-                return res.status(400).json({ error: "email already exists" })
+                return res.status(400).json({ msg: "email already exists" })
             }
 
             //incrypting password
@@ -37,6 +37,9 @@ router.post('/createuser',
                 email: req.body.email,
                 password: secPassword
             })
+             res.json({
+                msg:"User Created Succesfull"
+             })       
 
             //generating webTokens
             const data = {
@@ -62,7 +65,7 @@ router.post('/login',
         // console.log(req.body); 
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            res.status(400).json({ errors: errors.array() });
+            res.status(400).json({ msg: errors.array() });
         }
 
         const { email, password } = req.body
@@ -70,11 +73,11 @@ router.post('/login',
 
             let user = await User.findOne({email})
             if (!user) {
-                return res.status(400).json({ error: "Incorrect email or password" })
+                return res.status(400).json({ msg: "Incorrect email or password" })
             }
 
             const passwordcmpr = await bcrypt.compare(password, user.password)
-            if (!passwordcmpr) return res.status(400).json({ error: "Incorrect email or password" })
+            if (!passwordcmpr) return res.status(400).json({ msg: "Incorrect email or password" })
 
             const data = {
                 user: {

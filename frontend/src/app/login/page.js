@@ -2,43 +2,10 @@
 import React from 'react'
 import { Input,Button , Divider,Modal, ModalContent, ModalHeader,  ModalFooter, useDisclosure} from '@nextui-org/react'
 import { useState } from 'react';
-import Register from './register'
 import Link from "next/link";
 import { EyeFilledIcon } from "./EyeFilledIcon";
 import { EyeSlashFilledIcon } from "./EyeSlashFilledIcon";
-
-const RegisterForm=()=>{
-  const {isOpen, onOpen, onOpenChange} = useDisclosure();
-    return(
-        <>
-        <Button className='ml-9' onPress={onOpen}>Create new user</Button>
-        <Modal className='text-black 'size='xl' isOpen={isOpen} onOpenChange={onOpenChange}>
-          <ModalContent>
-
-            {(onClose) => (
-              <>
-                <ModalHeader className="flex flex-col gap-1 items-center">Create new User</ModalHeader>
-                
-              <Register/>
-                
-               
-                <ModalFooter>
-                  <Button color="danger" variant="light" onPress={onClose}>
-                    Close
-                  </Button>
-                  <Button color="primary" onPress={onClose}>
-                    Sign up
-                  </Button>
-                </ModalFooter>
-              </>
-            )}
-          </ModalContent>
-        </Modal>
-      </>
-    )
-    
-  }
-
+import Register from './registermodal'
 
 const page = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -84,7 +51,7 @@ const page = () => {
           <Link href='' className='ml-4 '>Forget passowrd</Link>
           </div>
           <Divider className='m-3 mt-5 bg-white'/>
-          <RegisterForm/>
+          <Register/>
         </form>
     </div>
   )
