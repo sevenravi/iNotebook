@@ -37,10 +37,6 @@ router.post('/createuser',
                 email: req.body.email,
                 password: secPassword
             })
-             res.json({
-                msg:"User Created Succesfull"
-             })       
-
             //generating webTokens
             const data = {
                 user: {
@@ -48,10 +44,10 @@ router.post('/createuser',
                 }
             }
             const token = jwt.sign(data, process.env.JWT_SECRET);
-            res.json({ token })
+            res.json({ msg:"User Created Succesfull",token })
         } catch (error) {
             console.error(error.message);
-            res.status(500).send("some error has occured")
+            res.status(400).send("some error has occured")
         }
     })
 

@@ -24,7 +24,7 @@ const page = () => {
             })
             const data =await res.json()
             alert(data.msg);
-            // if (res.status === 200) return router.push('/login')
+            if (res.status === 200) return router.push('/login')
         
     }
 
@@ -35,7 +35,7 @@ const page = () => {
             .required('Required'),
         email: Yup.string().email('Invalid email').required('Required'),
         password: Yup.string()
-            .min(6, 'Too Short!')
+            .min(5, 'Too Short!')
             .max(50, 'Too Long!')
             .required('Required'),
         confirmPassword: Yup.string()
